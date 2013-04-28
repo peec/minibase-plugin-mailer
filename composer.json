@@ -1,0 +1,23 @@
+{
+    "name": "pkj/minibase-plugin-mailer",
+    "type": "library",
+    "description": "This plugin adds easy mailing support for Minibase applications. Uses SwiftMailer library.",
+    "homepage": "http://github.com/peec/minibase-plugin-mailer",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Petter Kjelkenes",
+            "email": "kjelkenes@gmail.com",
+            "homepage": "http://pkj.no",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {"Pkj\\Minibase\\Plugin\\MailerPlugin": "src/"}
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "minibase/minibase": "dev-master",
+        "swiftmailer/swiftmailer": "4.*"
+    }
+}
