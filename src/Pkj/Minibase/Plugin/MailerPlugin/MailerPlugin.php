@@ -25,7 +25,6 @@ class MailerPlugin extends Plugin {
 				$cfg['encryption'] = isset($cfg['encryption']) ? $cfg['encryption'] : null;
 				
 				$transport = \Swift_SmtpTransport::newInstance($cfg['host'], $cfg['port'], $cfg['encryption']);
-				
 				if (isset($cfg['auth_mode'])) {
 					$transport->setAuthMethod(strtoupper($cfg['auth_mode']));
 				}
@@ -64,10 +63,14 @@ class MailerPlugin extends Plugin {
 	
 	public function setup() {
 		$cfg = $this->config;
+		$that = $this;
 		
-		$this->mb->plugin("mailer", function () use ($cfg) {
-			$transport = $this->getTransport($cfg);
+		$this->mb->plugin("mailer", function () use ($cfg, $that) {
+			$transport = $that->getTransport($cfg);
 			$swift = new \Swift_Mailer($transport);
+			if (isset($cfg['sender_address'])){
+				$swift->registerPlugin(new \Swift_Plugins_ImpersonatePlugin($cfg['sender_address']));
+			}
 			return $swift;
 		});
 	}
